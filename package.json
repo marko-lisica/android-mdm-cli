@@ -1,0 +1,24 @@
+{
+  "name": "android-mdm-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "cli.js",
+  "type": "module",
+  "bin": {
+    "am": "cli.js",
+    "android-mdm:": "cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "cli-table3": "^0.6.5",
+    "commander": "^13.1.0",
+    "googleapis": "^146.0.0",
+    "inquirer": "^12.4.2"
+  }
+}

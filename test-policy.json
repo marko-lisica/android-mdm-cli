@@ -1,0 +1,6 @@
+{
+    "passwordRequirements": {
+        "passwordMinimumLength": 6,
+        "passwordQuality": "ALPHABETIC"
+    }
+}
