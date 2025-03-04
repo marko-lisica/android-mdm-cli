@@ -18,7 +18,9 @@ export const createSignupUrl = (androidApi, config) => {
                 console.log(chalk.blue('Signup URL name:') + ' ', signupUrlName);
                 console.log(chalk.blue('Signup URL:') + ' ', signupUrl);
                 console.log("");
-                console.log("Save signup URL name, because you'll need this to create (bind) Android Enterprise (AE). Use bind-enterprise command to bind AE to your Google Cloud project.");
+                console.log("Save signup URL name, because you'll need this to create (bind) Android Enterprise (AE) later.");
+                console.log("");
+                console.log("After you go through registration flow and get enterpriseToken from a callback URL. Use \'enterprisesbind\' command to bind AE to your Google Cloud project with signup URL name enterprise token from callback.");
                 console.log("");
             }).catch(error => {
                 console.error('Couldn\'t create signup URL:', error.message);

@@ -94,6 +94,11 @@ export const policies = (androidApi, config) => {
                     },
                 });
 
+                if (!policies) {
+                    console.log(chalk.yellow('No policies available. Use \'policies patch\' command to add a policy.'));
+                    return;
+                }
+
                 policies.forEach(policy => {
                     const policyId = policy.name.split('/').pop();
 
@@ -182,7 +187,7 @@ export const policies = (androidApi, config) => {
                 console.log(chalk.green(`${options.name} policy successfully deleted.`));
                 console.log("");
             }).catch(error => {
-                console.error(chalk.red('Couldn\'t delete policiey:'), error.message);
+                console.error(chalk.red('Couldn\'t delete policy:'), error.message);
                 if (error.response) {
                     console.error('Details:', error.response.data);
                 }

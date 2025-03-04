@@ -38,6 +38,12 @@ export const devices = (androidApi, config) => {
                     },
                 });
 
+                if (!devices) {
+                    console.log("");
+                    console.log(chalk.yellow('No devices enrolled. Use \'enrollment-tokens add\' command to add a enrollment token and use it to enroll device.'));
+                    return;
+                }
+
                 devices.forEach(device => {
                     const deviceId = device.name.split('/').pop(); 
                     const policyId = device.appliedPolicyName.split('/').pop();

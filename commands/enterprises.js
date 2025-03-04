@@ -72,6 +72,12 @@ export const enterprises = (androidApi, config) => {
                     colWidths: [30, 30]
                 });
 
+                if (!enterprises) {
+                    console.log("");
+                    console.log(chalk.yellow('No enterprises available. Use \'create-signup-url\' to register Android Enterprise.'));
+                    return;
+                }
+
                 enterprises.forEach(enterprise => {
                     table.push([
                         enterprise.name,
