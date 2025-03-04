@@ -23,7 +23,7 @@ export const enrollmentTokens = (androidApi, config) => {
 
             // TODO: Is name necessary?
             const requestBody = {
-                name: options.name,
+                // name: options.name,
                 policyName: `${enterpriseName}/policies/default`,
             };
             

@@ -92,12 +92,13 @@ export const policies = (androidApi, config) => {
                     style: {
                         head: [],
                     },
-                    colWidths: [60, 10]
                 });
 
                 policies.forEach(policy => {
+                    const policyId = policy.name.split('/').pop();
+
                     table.push([
-                        policy.name,
+                        policyId,
                         policy.version,
                     ]);
                 });
@@ -116,7 +117,6 @@ export const policies = (androidApi, config) => {
             });
         });
 
-    // TODO: better explanation how to find ID of the device     
     // policies get command
     policiesCommand
         .command('get')

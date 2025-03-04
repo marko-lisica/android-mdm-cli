@@ -32,14 +32,15 @@ export const devices = (androidApi, config) => {
 
                 // ACII table
                 const table = new Table({
-                    head: ['Name (ID)', 'Ownership', 'Last report time', 'Applied policy'],
+                    head: ['Name (ID)', 'Ownership', 'Last report time', 'Applied policy (ID)'],
                     style: {
                         head: [],
                     },
-                    colWidths: [50, 20, 30, 50]
                 });
 
                 devices.forEach(device => {
+                    const deviceId = device.name.split('/').pop(); 
+                    const policyId = device.appliedPolicyName.split('/').pop();
 
                     let ownership
                     
@@ -52,10 +53,10 @@ export const devices = (androidApi, config) => {
                     }
 
                     table.push([
-                        device.name,
+                        deviceId,
                         ownership,
                         device.lastStatusReportTime,
-                        device.appliedPolicyName
+                        policyId
                     ]);
                 });
 
@@ -74,7 +75,6 @@ export const devices = (androidApi, config) => {
             });
         });
 
-    // TODO: better explanation how to find ID of the device    
     // devices get command
     devicesCommand
         .command('get')

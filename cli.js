@@ -4,6 +4,7 @@ import { Command } from 'commander';
 import fs from 'fs';
 import path from 'path';
 import inquirer from 'inquirer';
+import chalk from 'chalk';
 
 // Import commands
 import { configCommand } from './commands/config.js';
@@ -66,21 +67,46 @@ const promptForConfig = () => {
     });
 };
 
+// Function to check and validate the service account key file
+const checkServiceAccountKey = async (config) => {
+    if (!fs.existsSync(config.serviceAccountKey)) {
+        console.log(chalk.yellow('Service account key file not found.'));
+        const answers = await inquirer.prompt([
+            {
+                type: 'input',
+                name: 'serviceAccountKey',
+                message: 'Please provide a new path to your service account key file:',
+                validate: (input) => {
+                    const absolutePath = path.resolve(input);
+                    return fs.existsSync(absolutePath) || 'File does not exist. Please provide a valid path.';
+                },
+            },
+        ]);
+        // Update the config with the new service account key path
+        config.serviceAccountKey = path.resolve(answers.serviceAccountKey);
+        saveConfig(config);
+    }
+};
+
 // Main function to initialize the CLI tool
-const main = () => {
+const main = async () => {
     // Load or prompt for configuration
     let config = loadConfig();
     if (!config.serviceAccountKey || !config.projectId) {
-        promptForConfig().then(answers => {
+        await promptForConfig().then(answers => {
             config = answers;
-            startCli(config);
         }).catch(error => {
             console.error('Error prompting for configuration:', error);
         });
-    } else {
-        startCli(config);
     }
+
+    // Check if the service account key file exists
+    await checkServiceAccountKey(config);
+    
+    // Start the CLI with the loaded configuration
+    startCli(config);
 };
+
 
 // Function to start the CLI with the loaded configuration
 const startCli = (config) => {
@@ -109,10 +135,7 @@ const startCli = (config) => {
     program.addCommand(configCommand());     
     program.addCommand(policies(androidApi, config));
     program.addCommand(enrollmentTokens(androidApi, config));
-    program.addCommand(devices(androidApi, config));
-
-
-          
+    program.addCommand(devices(androidApi, config)); 
                
     // Parse command line arguments
     program.parse(process.argv);
