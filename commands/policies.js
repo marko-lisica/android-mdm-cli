@@ -95,6 +95,7 @@ export const policies = (androidApi, config) => {
                 });
 
                 if (!policies) {
+                    console.log("");
                     console.log(chalk.yellow('No policies available. Use \'policies patch\' command to add a policy.'));
                     return;
                 }

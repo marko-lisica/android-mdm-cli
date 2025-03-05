@@ -118,5 +118,64 @@ export const devices = (androidApi, config) => {
             });
         });
 
+    // devices update command
+    devicesCommand
+        .command('update')
+        .description('Update device policy and state. Run \'devices list\' command to get name (ID) of the device.')
+        .requiredOption('-n, --name <device-name>', 'Specify the name (ID) of the device to get details.')
+        .option('-p, --policy-name <policy-name>', 'Specify the name of the policy to enforce on the device. Run \'policies list\' command to get names (IDs) of the policies.')
+        .option('-s, --state <device-state>', 'Update device state. You can set \'active\' or \'disabled\'.')
+        .option('-e, --enterprise-name <enterprise-name>', 'Specify the name of Android Enterprise to get policy from it. Skip if \'defaultEnterprise\' is set in config.')
+        .action((options) => {
+
+            let enterpriseName;
+
+            if (options.enterpriseName) {
+                enterpriseName = options.enterpriseName;
+            } else if (config.defaultEnterprise) {
+                enterpriseName = config.defaultEnterprise;
+            } else {
+                console.log(chalk.red('Please use \'--enterprise-name\' or specify defaultEnterprise in config.'));
+                return;
+            }
+
+            if (!options.policyName && !options.state) {
+                console.log(chalk.red('Please specify either \'--policy-name\' or \'--state\'.'));
+                return;
+            }
+
+            let deviceState = options.state ? options.state : undefined;
+            let policyName = options.policyName ? options.policyName : undefined;
+            let devicePatchRequestBody = {};
+            let deviceUpdateMask = []
+
+            if (policyName) {
+                devicePatchRequestBody.policyName = `${enterpriseName}/policies/${policyName}`;
+                deviceUpdateMask.push("policyName");
+            }
+
+            if (deviceState) {
+                devicePatchRequestBody.state = deviceState.toUpperCase();
+                deviceUpdateMask.push("state");
+            }
+
+
+            androidApi.enterprises.devices.patch({
+                name: `${enterpriseName}/devices/${options.name}`,
+                requestBody: devicePatchRequestBody,
+                updateMask: deviceUpdateMask
+            }).then(() => {
+                // Print response
+                console.log("");
+                console.log(chalk.blue(`'${options.name}' device updated successfully`));
+                console.log("");
+            }).catch(error => {
+                console.error(chalk.red('Couldn\'t get device:'), error.message);
+                if (error.response) {
+                    console.error('Details:', error.response.data);
+                }
+            });
+        });
+
     return devicesCommand;
 };
