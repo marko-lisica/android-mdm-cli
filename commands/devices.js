@@ -87,6 +87,7 @@ export const devices = (androidApi, config) => {
         .description('Get device details. Run \'devices list\' command to get name (ID) of the device.')
         .requiredOption('-n, --name <device-name>', 'Specify the name (ID) of the device to get details.')
         .option('-e, --enterprise-name <enterprise-name>', 'Specify the name of Android Enterprise to get policy from it. Skip if \'defaultEnterprise\' is set in config.')
+        .option('--save', 'Save full device details response to a file.')
         .action((options) => {
 
             let enterpriseName;
@@ -109,7 +110,28 @@ export const devices = (androidApi, config) => {
                 console.log("");
                 console.log(chalk.blue(`'${options.name}' device details:`));
                 console.log("");
-                console.log(deviceDetails);
+                console.log(chalk.blue("Name:"), deviceDetails.name);
+                console.log(chalk.blue("Management mode:"), deviceDetails.managementMode);
+                console.log(chalk.blue("State:"), deviceDetails.state);
+                console.log(chalk.blue("Entrollment time:"), deviceDetails.enrollmentTime);
+                console.log(chalk.blue("Last status report:"), deviceDetails.lastStatusReportTime);
+                console.log(chalk.blue("Policy name:"), deviceDetails.policyName);
+                console.log(chalk.blue("Enrollment token name:"), deviceDetails.enrollmentTokenName);
+                console.log(chalk.blue("Brand:"), deviceDetails.hardwareInfo.brand);
+                console.log(chalk.blue("CPU:"), deviceDetails.hardwareInfo.hardware);
+                console.log(chalk.blue("Manufacturer:"), deviceDetails.hardwareInfo.manufacturer);
+                console.log(chalk.blue("Model:"), deviceDetails.hardwareInfo.model);
+                console.log(chalk.blue("Serial number:"), deviceDetails.hardwareInfo.serialNumber);
+                console.log(chalk.blue("Ownership:"), deviceDetails.ownership);
+                console.log("")
+                !options.save ? console.log("Response is long to be displayed in terminal. Use \'--save\' flag to save response to a file.") : console.log("") 
+
+                // Write the response to a file
+                if (options.save) {
+                    fs.writeFileSync(`${options.name}-device-details.json`, JSON.stringify(deviceDetails, null, 2));
+                    console.log(chalk.green(`Full device details response saved to '${options.name}-device-details.json'`));
+                }
+                
             }).catch(error => {
                 console.error(chalk.red('Couldn\'t get device:'), error.message);
                 if (error.response) {
