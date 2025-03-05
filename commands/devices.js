@@ -131,7 +131,7 @@ export const devices = (androidApi, config) => {
                     fs.writeFileSync(`${options.name}-device-details.json`, JSON.stringify(deviceDetails, null, 2));
                     console.log(chalk.green(`Full device details response saved to '${options.name}-device-details.json'`));
                 }
-                
+
             }).catch(error => {
                 console.error(chalk.red('Couldn\'t get device:'), error.message);
                 if (error.response) {
@@ -193,6 +193,41 @@ export const devices = (androidApi, config) => {
                 console.log("");
             }).catch(error => {
                 console.error(chalk.red('Couldn\'t get device:'), error.message);
+                if (error.response) {
+                    console.error('Details:', error.response.data);
+                }
+            });
+        });
+
+    // devices delete command
+    devicesCommand
+        .command('delete')
+        .description('Delete (unenroll) a device from your Android Enterprise. Run \'devices list\' command to get name (ID) of the device.')
+        .requiredOption('-n, --name <policy-name>', 'Specify the name of the policy to delete.')
+        .option('-e, --enterprise-name <enterprise-name>', 'Specify the name of Android Enterprise to delete policy from. Skip if \'defaultEnterprise\' is set in config.')
+        .action((options) => {
+
+            let enterpriseName;
+
+            if (options.enterpriseName) {
+                enterpriseName = options.enterpriseName;
+            } else if (config.defaultEnterprise) {
+                enterpriseName = config.defaultEnterprise;
+            } else {
+                console.log(chalk.red('Please use \'--enterprise-name\' or specify defaultEnterprise in config.'));
+                return;
+            }
+
+            androidApi.enterprises.devices.delete({
+                name: `${enterpriseName}/devices/${options.name}`,
+            }).then(() => {
+
+                // Print response
+                console.log("");
+                console.log(chalk.green(`${options.name} device successfully deleted.`));
+                console.log("");
+            }).catch(error => {
+                console.error(chalk.red('Couldn\'t delete device:'), error.message);
                 if (error.response) {
                     console.error('Details:', error.response.data);
                 }

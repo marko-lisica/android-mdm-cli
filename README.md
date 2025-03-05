@@ -2,6 +2,8 @@
 
 > Still work in progress...
 
+![Cover image for anroid-mdm CLI](./cover-img.png)
+
 `android-mdm` is a CLI tool for interacting with Android Enterprise. You can try out features of the [Android Management API (AMAPI)](https://developers.google.com/android/management). With this tool, you can register for Android Enterprise, bind it to your Google Cloud project, enroll devices, enforce policies, and more.
 
 AMAPI is limited until you're an EMM solution (MDM tool) that has been added to the [EMM directory](https://androidenterprisepartners.withgoogle.com/emm/) by Google. To learn more about these limitations, refer to the [permissible usage](https://developers.google.com/android/management/permissible-usage) page.
