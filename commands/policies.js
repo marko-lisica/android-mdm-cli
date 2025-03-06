@@ -126,7 +126,7 @@ export const policies = (androidApi, config) => {
     // policies get command
     policiesCommand
         .command('get')
-        .description('Get policy details. Run \'policies list\' command to get name of the policy.')
+        .description('Get policy details. Run \'policies list\' command to get name (ID) of the policy.')
         .requiredOption('-n, --name <policy-name>', 'Specify the name of the policy to get details.')
         .option('-e, --enterprise-name <enterprise-name>', 'Specify the name of Android Enterprise to get policy from it. Skip if \'defaultEnterprise\' is set in config.')
         .action((options) => {
@@ -163,7 +163,7 @@ export const policies = (androidApi, config) => {
     // policies delete command
     policiesCommand
         .command('delete')
-        .description('Delete policy from your Android Enterprise. Run \'policies list\' command to get name of the policy.')
+        .description('Delete policy from your Android Enterprise. Run \'policies list\' command to get name (ID) of the policy.')
         .requiredOption('-n, --name <policy-name>', 'Specify the name of the policy to delete.')
         .option('-e, --enterprise-name <enterprise-name>', 'Specify the name of Android Enterprise to delete policy from. Skip if \'defaultEnterprise\' is set in config.')
         .action((options) => {
