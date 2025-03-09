@@ -103,7 +103,7 @@ export const enterprises = (androidApi, config) => {
     enterprisesCommand
     .command('get')
     .description('Get enterprise details. Run \'enterprises list\' command to get ID of the enterprise.')
-    .requiredOption('-i, --id <enterprise-id>', 'Specify the ID of the enterprise to get details.')
+    .requiredOption('-i, --id <enterprise-id>', 'Required. Specify the ID of the enterprise to get details.')
     .action((options) => {
 
         androidApi.enterprises.get({
@@ -126,7 +126,7 @@ export const enterprises = (androidApi, config) => {
     enterprisesCommand
     .command('delete')
     .description('Delete enterprise. WARNING: All devices enrolled to this enterprise will be unenrolled.')
-    .requiredOption('-i, --id <enterprise-id>', 'Specify the ID of the enterprise to get details. Run \'enterprises list\' command to get ID of the enterprise.')
+    .requiredOption('-i, --id <enterprise-id>', 'Required. Specify the ID of the enterprise to get details. Run \'enterprises list\' command to get ID of the enterprise.')
     .action((options) => {
 
         androidApi.enterprises.delete({
@@ -146,7 +146,7 @@ export const enterprises = (androidApi, config) => {
     // enterprises patch command
     enterprisesCommand
         .command('patch')
-        .description('Patch an enterprise.')
+        .description('Patch an enterprise. Learn how to make enterprise JSON: https://developers.google.com/android/management/reference/rest/v1/enterprises')
         .requiredOption('-f, --file <file-path>', 'Required. Specify path to enterprise JSON file.')
         .requiredOption('-i, --id <enterprise-id>', 'Required. Specify the ID of the enterprise to patch.')
         .action((options) => {

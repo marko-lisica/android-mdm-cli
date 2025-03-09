@@ -10,7 +10,7 @@ export const policies = (androidApi, config) => {
     // policies patch command
     policiesCommand
         .command('patch')
-        .description('Add/update a policy.')
+        .description('Add/update a policy. Learn how to make policy JSON: https://developers.google.com/android/management/reference/rest/v1/enterprises.policies')
         .requiredOption('-f, --file <file-path>', 'Required. Specify path to policy JSON file.')
         .requiredOption('-i, --id <policy-id>', 'Required. Specify the ID of the policy, to reference in enrollment token or when adding to a device.')
         .option('-e, --enterprise-name <enterprise-name>', 'Specify the name of Android Enterprise to add or update policy for. Skip if \'defaultEnterprise\' is set in config.')
@@ -123,7 +123,7 @@ export const policies = (androidApi, config) => {
     policiesCommand
         .command('get')
         .description('Get policy details. Run \'policies list\' command to get ID of the policy.')
-        .requiredOption('-i, --id <policy-id>', 'Specify the ID of the policy to get details.')
+        .requiredOption('-i, --id <policy-id>', 'Required. Specify the ID of the policy to get details.')
         .option('-e, --enterprise-name <enterprise-name>', 'Specify the name of Android Enterprise to get policy from it. Skip if \'defaultEnterprise\' is set in config.')
         .action((options) => {
 
@@ -158,7 +158,7 @@ export const policies = (androidApi, config) => {
     policiesCommand
         .command('delete')
         .description('Delete policy from your Android Enterprise. Run \'policies list\' command to get ID of the policy.')
-        .requiredOption('-i, --id <policy-id>', 'Specify the ID of the policy to delete.')
+        .requiredOption('-i, --id <policy-id>', 'Required. Specify the ID of the policy to delete.')
         .option('-e, --enterprise-name <enterprise-name>', 'Specify the name of Android Enterprise to delete policy from. Skip if \'defaultEnterprise\' is set in config.')
         .action((options) => {
 

@@ -10,7 +10,7 @@ export const enrollmentTokens = (androidApi, config) => {
     enrollmentTokensCommand
         .command('add')
         .description('Create new enrollment token and use to enroll devices to your Android Enterprise.')
-        .requiredOption('-n, --name <token-name>', 'Specify the name of the enrollment token.')
+        .requiredOption('-n, --name <token-name>', 'Required. Specify the name of the enrollment token.')
         .option('--byod', 'Specify if possible to enroll BYOD devices to your Android Enterprise.')
         .option('-e, --enterprise-name <enterprise-name>', 'Specify the name of Android Enterprise to create enrollment token for. Skip if \'defaultEnterprise\' is set in config.')
         .action((options) => {
@@ -117,7 +117,7 @@ export const enrollmentTokens = (androidApi, config) => {
     enrollmentTokensCommand
         .command('get')
         .description('Get enrollment token details. Run \'enrollment-tokens list\' command to get name(ID) of the enrollment token.')
-        .requiredOption('-n, --name <policy-name>', 'Specify the name of the enrollment token to get details.')
+        .requiredOption('-n, --name <policy-name>', 'Required. Specify the name of the enrollment token to get details.')
         .option('-e, --enterprise-name <enterprise-name>', 'Specify the name of Android Enterprise to get policy from it. Skip if \'defaultEnterprise\' is set in config.')
         .action((options) => {
 
@@ -152,7 +152,7 @@ export const enrollmentTokens = (androidApi, config) => {
     enrollmentTokensCommand
         .command('delete')
         .description('Delete a enrollment token from your Android Enterprise. Run \'enrollment-tokens list\' command to get name of the enrollment token.')
-        .requiredOption('-n, --name <policy-name>', 'Specify the name of the enrollment token to delete.')
+        .requiredOption('-n, --name <policy-name>', 'Required. Specify the name of the enrollment token to delete.')
         .option('-e, --enterprise-name <enterprise-name>', 'Specify the name of Android Enterprise to delete policy from. Skip if \'defaultEnterprise\' is set in config.')
         .action((options) => {
 

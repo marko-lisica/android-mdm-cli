@@ -83,7 +83,7 @@ export const devices = (androidApi, config) => {
     devicesCommand
         .command('get')
         .description('Get device details. Run \'devices list\' command to get ID of the device.')
-        .requiredOption('-i, --id <device-id>', 'Specify the ID of the device to get details.')
+        .requiredOption('-i, --id <device-id>', 'Required. Specify the ID of the device to get details.')
         .option('-e, --enterprise-name <enterprise-name>', 'Specify the name of Android Enterprise to get policy from it. Skip if \'defaultEnterprise\' is set in config.')
         .option('--save', 'Save full device details response to a file.')
         .action((options) => {
@@ -140,7 +140,7 @@ export const devices = (androidApi, config) => {
     devicesCommand
         .command('update')
         .description('Update device policy and state. Run \'devices list\' command to get name (ID) of the device.')
-        .requiredOption('-i, --id <device-id>', 'Specify the ID of the device to get details.')
+        .requiredOption('-i, --id <device-id>', 'Required. Specify the ID of the device to get details.')
         .option('-p, --policy-id <policy-id>', 'Specify the ID of the policy to enforce on the device. Run \'policies list\' command to get IDs of the policies.')
         .option('-s, --state <device-state>', 'Update device state. You can set \'active\' or \'disabled\'.')
         .option('-e, --enterprise-name <enterprise-name>', 'Specify the name of Android Enterprise to get policy from it. Skip if \'defaultEnterprise\' is set in config.')
@@ -197,7 +197,7 @@ export const devices = (androidApi, config) => {
     devicesCommand
         .command('delete')
         .description('Delete (unenroll) a device from your Android Enterprise. Run \'devices list\' command to get name (ID) of the device.')
-        .requiredOption('-i, --id <device-id>', 'Specify the ID of the device to delete.')
+        .requiredOption('-i, --id <device-id>', 'Required. Specify the ID of the device to delete.')
         .option('-e, --enterprise-name <enterprise-name>', 'Specify the name of Android Enterprise to delete policy from. Skip if \'defaultEnterprise\' is set in config.')
         .action((options) => {
 
@@ -230,7 +230,7 @@ export const devices = (androidApi, config) => {
     devicesCommand
     .command('reset-password')
     .description('Send a command to reset a password on a device. Run \'devices list\' command to get name (ID) of the device.')
-    .requiredOption('-i, --id <device-id>', 'Specify the ID of the device to run command on.')
+    .requiredOption('-i, --id <device-id>', 'Required. Specify the ID of the device to run command on.')
     .option('-f, --flags <reset-password-options>', 'Specify comma separated reset password flags. Available flags: https://developers.google.com/android/management/reference/rest/v1/enterprises.devices/issueCommand#ResetPasswordFlag')
     .action((options) => {
 
@@ -277,7 +277,7 @@ export const devices = (androidApi, config) => {
     devicesCommand
     .command('reboot')
     .description('Send a command to reboot a device. Run \'devices list\' command to get name (ID) of the device.')
-    .requiredOption('-i, --id <device-id>', 'Specify the ID of the device to run command on.')
+    .requiredOption('-i, --id <device-id>', 'Required. Specify the ID of the device to run command on.')
     .action((options) => {
 
         let enterpriseName;
@@ -317,7 +317,7 @@ export const devices = (androidApi, config) => {
     devicesCommand
     .command('lock')
     .description('Send a command to lock a device, as if the lock screen timeout had expired. Run \'devices list\' command to get name (ID) of the device.')
-    .requiredOption('-i, --id <device-id>', 'Specify the ID of the device to run command on.')
+    .requiredOption('-i, --id <device-id>', 'Required. Specify the ID of the device to run command on.')
     .action((options) => {
 
         let enterpriseName;
@@ -356,7 +356,7 @@ export const devices = (androidApi, config) => {
     devicesCommand
     .command('relinquish-ownershio')
     .description('Send a command to remove a work profile from company-owned device. Run \'devices list\' command to get name (ID) of the device.')
-    .requiredOption('-i, --id <device-id>', 'Specify the ID of the device to run command on.')
+    .requiredOption('-i, --id <device-id>', 'Required. Specify the ID of the device to run command on.')
     .action((options) => {
 
         let enterpriseName;
@@ -395,8 +395,8 @@ export const devices = (androidApi, config) => {
     devicesCommand
     .command('clear-app-data')
     .description('Send a command to clear app data of specified apps. Use \'--app_ids\' to specify apps. Run \'devices list\' command to get name (ID) of the device.')
-    .requiredOption('-i, --id <device-id>', 'Specify the ID of the device to run command on.')
-    .requiredOption('-a, --app-ids <ids-of-apps>', 'Specify comma separated app IDs . If not specified, all app data will be cleared. You can find app ID in the URL of the Play Store app (look for \'id=com.example\' in the URL.)')
+    .requiredOption('-i, --id <device-id>', 'Required. Specify the ID of the device to run command on.')
+    .requiredOption('-a, --app-ids <ids-of-apps>', 'Required. Specify comma separated app IDs . If not specified, all app data will be cleared. You can find app ID in the URL of the Play Store app (look for \'id=com.example\' in the URL.)')
     .action((options) => {
 
         let enterpriseName;
@@ -442,7 +442,7 @@ export const devices = (androidApi, config) => {
     devicesCommand
     .command('start-lost-mode')
     .description('Send a command to start a lost mode on a device. Run \'devices list\' command to get name (ID) of the device.')
-    .requiredOption('-i, --id <device-id>', 'Specify the ID of the device to run command on.')
+    .requiredOption('-i, --id <device-id>', 'Required. Specify the ID of the device to run command on.')
     .option('--message <lost-mode-message>', 'Specify a message that will be displayed when lost mode is active on a device.)')
     .option('--email <lost-mode-email>', 'Specify an email that will be displayed when lost mode is active on a device.)')
     .option('--phone <lost-mode-phone>', 'Specify a phone number that will be displayed when lost mode is active on a device.)')
@@ -498,7 +498,7 @@ export const devices = (androidApi, config) => {
     devicesCommand
     .command('stop-lost-mode')
     .description('Send a command to stop a lost mode on a device. Run \'devices list\' command to get name (ID) of the device.')
-    .requiredOption('-i, --id <device-id>', 'Specify the ID of the device to run command on.')
+    .requiredOption('-i, --id <device-id>', 'Required. Specify the ID of the device to run command on.')
     .action((options) => {
 
         let enterpriseName;

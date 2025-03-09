@@ -10,7 +10,7 @@ export const operations = (androidApi, config) => {
     operationsCommand
         .command('list')
         .description('List operations queued in your Android Enterprise.')
-        .requiredOption('-d, --device <device-id>', 'Specify the ID of the device to cancel operation queued for it. Run \'devices list\' command to get ID of the device.')
+        .requiredOption('-d, --device <device-id>', 'Required. Specify the ID of the device to cancel operation queued for it. Run \'devices list\' command to get ID of the device.')
         .option('-e, --enterprise-name <enterprise-name>', 'Specify the name of Android Enterprise to get policy from it. Skip if \'defaultEnterprise\' is set in config.')
         .action((options) => {
             let enterpriseName;
@@ -70,7 +70,8 @@ export const operations = (androidApi, config) => {
     operationsCommand
         .command('get')
         .description('Get operation details Run \'operations list\' command to get name (ID) of the operation.')
-        .requiredOption('-d, --device <device-id>', 'Specify the ID of the device to cancel operation queued for it. Run \'devices list\' command to get ID of the device.')        .requiredOption('-i, --id <operation-id>', 'Specify the name (ID) of the operation to get details. Run \'operations list\' command to get name (ID) of the operation.')
+        .requiredOption('-d, --device <device-id>', 'Required. Specify the ID of the device to cancel operation queued for it. Run \'devices list\' command to get ID of the device.')
+        .requiredOption('-i, --id <operation-id>', 'Required. Specify the name (ID) of the operation to get details. Run \'operations list\' command to get name (ID) of the operation.')
         .option('-e, --enterprise-name <enterprise-name>', 'Specify the name of Android Enterprise to get policy from it. Skip if \'defaultEnterprise\' is set in config.')
         .action((options) => {
             let enterpriseName;
@@ -108,8 +109,8 @@ export const operations = (androidApi, config) => {
     operationsCommand
         .command('cancel')
         .description('Cancel operation queued in your Android Enterprise.')
-        .requiredOption('-d, --device <device-id>', 'Specify the ID of the device to cancel operation queued for it. Run \'devices list\' command to get ID of the device.')
-        .requiredOption('-i, --id <operation-id>', 'Specify the ID of the operation to cancel. Run \'operations list\' command to get name (ID) of the operation.')
+        .requiredOption('-d, --device <device-id>', 'Required. Specify the ID of the device to cancel operation queued for it. Run \'devices list\' command to get ID of the device.')
+        .requiredOption('-i, --id <operation-id>', 'Required. Specify the ID of the operation to cancel. Run \'operations list\' command to get name (ID) of the operation.')
         .option('-e, --enterprise-name <enterprise-name>', 'Specify the name of Android Enterprise to get policy from it. Skip if \'defaultEnterprise\' is set in config.')
         .action((options) => {
             let enterpriseName;
