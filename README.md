@@ -2,7 +2,7 @@
 
 ![Cover image for anroid-mdm CLI](./cover-img.png)
 
-`android-mdm` is a CLI tool for interacting with Android Enterprise. You can try out features of the [Android Management API (AMAPI)](https://developers.google.com/android/management). With this tool, you can register for Android Enterprise, bind it to your Google Cloud project, enroll devices, enforce policies, and more.
+`android-mdm` is a CLI tool for interacting with Android Enterprise. You can try out features of the [Android Management API (AMAPI)](https://developers.google.com/android/management). With this tool, you can register for Android Enterprise, bind it to your Google Cloud project, enroll devices, enforce policies, and more. You can use `am` alias to run this CLI.
 
 AMAPI is limited until you're an EMM solution (MDM tool) that has been added to the [EMM directory](https://androidenterprisepartners.withgoogle.com/emm/) by Google. To learn more about these limitations, refer to the [permissible usage](https://developers.google.com/android/management/permissible-usage) page.
 
@@ -10,11 +10,11 @@ AMAPI is limited until you're an EMM solution (MDM tool) that has been added to 
 
 This tool could be useful for experimenting with AMAPI, testing, or possibly managing a small number of devices.
 
-This project was developed during the research phase of Fleet's Android MDM project, where I engaged with the Android Management API (AMAPI) to explore its capabilities. My goal was to simplify the process for others, leading to the creation of this tool to facilitate easier interactions with AMAPI. Fleet itself offers a broader range of features, including UI/API/GitOps interfaces for managing a large number of devices. To learn more, visit [fleetdm.com](https://fleetdm.com).
+This project was developed during the research phase of Fleet's Android MDM project, during which I extensively engaged with the Android Management API (AMAPI) to explore its capabilities. My goal was to simplify the process for others, leading to the creation of this tool to facilitate easier interactions with AMAPI. Fleet itself offers a broader range of features, including UI/API/GitOps interfaces for managing a large number of devices. To learn more, visit [fleetdm.com](https://fleetdm.com).
 
 ## How to guide
 
-To manage Android devices with `andorid-mdm` CLI you need to do following.
+To manage Android devices with `android-mdm` CLI you need to do following.
 
 1. Create Google Cloud project.
 2. Enable Android Management API for that project.
@@ -36,9 +36,9 @@ Follow [this guide](https://developers.google.com/android/management/service-acc
 First step in order to manage Android devices is to register Android Enterprise and bind it to Google Cloud project via `android-mdm create-signup-url` and `android-mdm enterprises bind` commands.
 Use these commands and follow instructions to register and bind your Android Enterprise.
 
-### Default enterprise
+### Default Android Enterprise
 
-`android-mdm` CLI has option to save configuration and have `defaultEnterprise` that will be used in all your requests (e.g. each policy is tied to Android Enterprise). This way you don't need to specify `--enterprise-name` each time you're managing policies, enrollment tokens, etc. You'll be prompted to input your default enterprise when you run CLI for the first time, but you can always edit config file that's in your home folder.
+`android-mdm` CLI has option to save configuration and have `defaultEnterprise` that will be used (if you have multiple bound) in all your requests (e.g. each policy is tied to Android Enterprise). This way, you don't need to specify `--enterprise-name` each time you're managing policies, enrollment tokens, etc. You'll be prompted to input your default enterprise when you run CLI for the first time, but you can always edit config file that's in your home folder.
 
 ### Enrollment token
 
@@ -46,12 +46,13 @@ To enroll device to your Android Enterprise, you need to run `android-management
 
 ### Policies
 
-Policies are used to enforce settings and install/define allowed apps. Policy can be applied to one or more devices. However, a device can only have a single policy at any given time. A device should be associated with a policy during device enrollment. You can also create default policy that will be applied to each enrolled device and later you can update policy for each device.
+Policies are used to enforce settings and install/define allowed apps. Policy can be applied to one or more devices. However, each device can only have a single policy at any given time. A device should be associated with a policy during device enrollment. You can also create default policy that will be applied to each enrolled device and later you can update policy for each device.
 
 #### How to create a policy.
 
 First, you need to create JSON file, using options available [here](https://developers.google.com/android/management/reference/rest/v1/enterprises.policies#resource:-policy).
-Example:
+
+Here is an example of a policy JSON file:
 ```json
 {
     "passwordRequirements": {
@@ -65,7 +66,7 @@ Once you created your policy JSON file, use `android-management policies patch -
 
 #### Default policy
 
-To create a default policy that will be applied to each enrolled device use command above and set `--id` to `default`.
+To create a default policy that will be applied to each enrolled device, use the command above and set `--id` to `default`.
 
 ### Manage devices
 
