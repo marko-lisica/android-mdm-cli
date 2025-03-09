@@ -5,7 +5,7 @@ import Table from 'cli-table3';
 
 export const devices = (androidApi, config) => {
     const devicesCommand = new Command('devices')
-    .description('Manage Android devices enrolled to your Android Enterprise.');
+    .description('Manage Android devices enrolled to your Android Enterprise. Once you issue a command (e.g. lock or reboot) to a device it will be queued as operation. You can manage operations by using \'operations\' command.');
 
     // devices list command
     devicesCommand

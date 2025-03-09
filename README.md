@@ -1,7 +1,5 @@
 # Android MDM CLI
 
-> Still work in progress...
-
 ![Cover image for anroid-mdm CLI](./cover-img.png)
 
 `android-mdm` is a CLI tool for interacting with Android Enterprise. You can try out features of the [Android Management API (AMAPI)](https://developers.google.com/android/management). With this tool, you can register for Android Enterprise, bind it to your Google Cloud project, enroll devices, enforce policies, and more.
@@ -29,8 +27,50 @@ To manage Android devices with `andorid-mdm` CLI you need to do following.
 
 See details about each step below.
 
-### Create Google Cloud project 
+### Create Google Cloud project and service account 
 
-...
+Follow [this guide](https://developers.google.com/android/management/service-account) to create Google Cloud project, enable Android Management API and create service account key that's necessary to use this CLI. You'll be prompted to provide Google Cloud project ID and service account key file.
 
+### Register Android Enterprise
 
+First step in order to manage Android devices is to register Android Enterprise and bind it to Google Cloud project via `android-mdm create-signup-url` and `android-mdm enterprises bind` commands.
+Use these commands and follow instructions to register and bind your Android Enterprise.
+
+### Default enterprise
+
+`android-mdm` CLI has option to save configuration and have `defaultEnterprise` that will be used in all your requests (e.g. each policy is tied to Android Enterprise). This way you don't need to specify `--enterprise-name` each time you're managing policies, enrollment tokens, etc. You'll be prompted to input your default enterprise when you run CLI for the first time, but you can always edit config file that's in your home folder.
+
+### Enrollment token
+
+To enroll device to your Android Enterprise, you need to run `android-management enrollment-tokens add` command. Command will return URL that you need to open on your Android device. This URL automatically initiate enrollment wizard when open on Android device. Each enrollment token should have policy assigned to it. This is policy that will be enforced on device when enrolled. Learn about policies in the section below. If you want to enroll BYOD (bring your own device) device use `--byod` flag. Default enrollment token is for company-owned devices, so device will be [fully managed](https://developers.google.com/android/management/provision-device#company-owned_devices_for_work_use_only).
+
+### Policies
+
+Policies are used to enforce settings and install/define allowed apps. Policy can be applied to one or more devices. However, a device can only have a single policy at any given time. A device should be associated with a policy during device enrollment. You can also create default policy that will be applied to each enrolled device and later you can update policy for each device.
+
+#### How to create a policy.
+
+First, you need to create JSON file, using options available [here](https://developers.google.com/android/management/reference/rest/v1/enterprises.policies#resource:-policy).
+Example:
+```json
+{
+    "passwordRequirements": {
+        "passwordMinimumLength": 6,
+        "passwordQuality": "ALPHABETIC"
+    }
+}
+```
+
+Once you created your policy JSON file, use `android-management policies patch --file path/to/policy-file.json --id policyIdString` to add policy to your enterprise. You can use same command to update (patch) existing policy.
+
+#### Default policy
+
+To create a default policy that will be applied to each enrolled device use command above and set `--id` to `default`.
+
+### Manage devices
+
+You can use `devices` command to list devices, get details about specific device, update policy & state, and run commands (lock, reboot, lost mode, etc.). Run `android-mdm devices -h` to learn about each option. Once you run command, you can use `operations` command to get list of queued commands or to cancel.
+
+### Contribution/suggestions
+
+If you want to suggest an improvement please create an issue. Feel free to open PR to improve CLI.
