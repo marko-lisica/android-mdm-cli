@@ -234,5 +234,327 @@ export const devices = (androidApi, config) => {
             });
         });
 
+    // devices reset-password command
+    devicesCommand
+    .command('reset-password')
+    .description('Send a command to reset a password on a device. Run \'devices list\' command to get name (ID) of the device.')
+    .requiredOption('-n, --name <device-name>', 'Specify the name (ID) of the device to get details.')
+    .option('-f, --flags <reset-password-options>', 'Specify comma separated reset password flags. Available flags: https://developers.google.com/android/management/reference/rest/v1/enterprises.devices/issueCommand#ResetPasswordFlag')
+    .action((options) => {
+
+        let enterpriseName;
+
+        if (options.enterpriseName) {
+            enterpriseName = options.enterpriseName;
+        } else if (config.defaultEnterprise) {
+            enterpriseName = config.defaultEnterprise;
+        } else {
+            console.log(chalk.red('Please use \'--enterprise-name\' or specify defaultEnterprise in config.'));
+            return;
+        }
+
+        let issueCommandRequestBody = {}
+        
+        if (!options.flags) {
+                issueCommandRequestBody.type = "RESET_PASSWORD";
+        } else {
+            let resetPasswordFlags = options.flags;
+            let flagsArray = resetPasswordFlags.split(",");
+            issueCommandRequestBody.type = "RESET_PASSWORD";
+            issueCommandRequestBody.resetPasswordFlags = flagsArray;
+        }
+
+        androidApi.enterprises.devices.issueCommand({
+            name: `${enterpriseName}/devices/${options.name}`,
+            requestBody: issueCommandRequestBody
+        }).then((issueCommandResponse) => {
+
+            let response = issueCommandResponse.data;
+            // Print response
+            console.log("");
+            console.log(chalk.blue("Command sent successfully"));
+            console.log("");
+            console.log(response);
+        }).catch(error => {
+            console.error(chalk.red('Couldn\'t send command:'), error.message);
+            if (error.response) {
+                console.error('Details:', error.response.data);
+            }
+        });
+    });
+
+    // devices reboot command
+    devicesCommand
+    .command('reboot')
+    .description('Send a command to reboot a device. Run \'devices list\' command to get name (ID) of the device.')
+    .requiredOption('-n, --name <device-name>', 'Specify the name (ID) of the device to get details.')
+    .action((options) => {
+
+        let enterpriseName;
+
+        if (options.enterpriseName) {
+            enterpriseName = options.enterpriseName;
+        } else if (config.defaultEnterprise) {
+            enterpriseName = config.defaultEnterprise;
+        } else {
+            console.log(chalk.red('Please use \'--enterprise-name\' or specify defaultEnterprise in config.'));
+            return;
+        }
+
+        let issueCommandRequestBody = {
+            type: "REBOOT"
+        }
+
+
+        androidApi.enterprises.devices.issueCommand({
+            name: `${enterpriseName}/devices/${options.name}`,
+            requestBody: issueCommandRequestBody
+        }).then((issueCommandResponse) => {
+
+            let response = issueCommandResponse.data;
+            // Print response
+            console.log("");
+            console.log(chalk.blue("Command sent successfully"));
+            console.log("");
+            console.log(response);
+        }).catch(error => {
+            console.error(chalk.red('Couldn\'t send command:'), error.message);
+            if (error.response) {
+                console.error('Details:', error.response.data);
+            }
+        });
+    });
+
+    // devices lock command
+    devicesCommand
+    .command('lock')
+    .description('Send a command to lock a device, as if the lock screen timeout had expired. Run \'devices list\' command to get name (ID) of the device.')
+    .requiredOption('-n, --name <device-name>', 'Specify the name (ID) of the device to get details.')
+    .action((options) => {
+
+        let enterpriseName;
+
+        if (options.enterpriseName) {
+            enterpriseName = options.enterpriseName;
+        } else if (config.defaultEnterprise) {
+            enterpriseName = config.defaultEnterprise;
+        } else {
+            console.log(chalk.red('Please use \'--enterprise-name\' or specify defaultEnterprise in config.'));
+            return;
+        }
+
+        let issueCommandRequestBody = {
+            type: "LOCK"
+        }
+
+        androidApi.enterprises.devices.issueCommand({
+            name: `${enterpriseName}/devices/${options.name}`,
+            requestBody: issueCommandRequestBody
+        }).then((issueCommandResponse) => {
+
+            let response = issueCommandResponse.data;
+            // Print response
+            console.log("");
+            console.log(chalk.blue("Command sent successfully"));
+            console.log("");
+            console.log(response);
+        }).catch(error => {
+            console.error(chalk.red('Couldn\'t send command:'), error.message);
+            if (error.response) {
+                console.error('Details:', error.response.data);
+            }
+        });
+    });
+
+    // devices relinquish_ownershio command
+    devicesCommand
+    .command('relinquish-ownershio')
+    .description('Send a command to remove a work profile from company-owned device. Run \'devices list\' command to get name (ID) of the device.')
+    .requiredOption('-n, --name <device-name>', 'Specify the name (ID) of the device to get details.')
+    .action((options) => {
+
+        let enterpriseName;
+
+        if (options.enterpriseName) {
+            enterpriseName = options.enterpriseName;
+        } else if (config.defaultEnterprise) {
+            enterpriseName = config.defaultEnterprise;
+        } else {
+            console.log(chalk.red('Please use \'--enterprise-name\' or specify defaultEnterprise in config.'));
+            return;
+        }
+
+        let issueCommandRequestBody = {
+            type: "RELINQUISH_OWNERSHIP"
+        }
+
+        androidApi.enterprises.devices.issueCommand({
+            name: `${enterpriseName}/devices/${options.name}`,
+            requestBody: issueCommandRequestBody
+        }).then((issueCommandResponse) => {
+
+            let response = issueCommandResponse.data;
+            // Print response
+            console.log("");
+            console.log(chalk.blue("Command sent successfully"));
+            console.log("");
+            console.log(response);
+        }).catch(error => {
+            console.error(chalk.red('Couldn\'t send command:'), error.message);
+            if (error.response) {
+                console.error('Details:', error.response.data);
+            }
+        });
+    });
+
+    // devices clear-app-data command
+    devicesCommand
+    .command('clear-app-data')
+    .description('Send a command to clear app data of specified apps. Use \'--app_ids\' to specify apps. Run \'devices list\' command to get name (ID) of the device.')
+    .requiredOption('-n, --name <device-name>', 'Specify the name (ID) of the device to get details.')
+    .requiredOption('-a, --app-ids <ids-of-apps>', 'Specify comma separated app IDs . If not specified, all app data will be cleared. You can find app ID in the URL of the Play Store app (look for \'id=com.example\' in the URL.)')
+    .action((options) => {
+
+        let enterpriseName;
+
+        if (options.enterpriseName) {
+            enterpriseName = options.enterpriseName;
+        } else if (config.defaultEnterprise) {
+            enterpriseName = config.defaultEnterprise;
+        } else {
+            console.log(chalk.red('Please use \'--enterprise-name\' or specify defaultEnterprise in config.'));
+            return;
+        }
+
+        let issueCommandRequestBody = {
+            clearAppsDataParams: {}
+        };
+        
+        let appIds = options.appIds;
+        let appIdsArray = appIds.split(",");
+
+        issueCommandRequestBody.clearAppsDataParams.packageNames = appIdsArray;
+        console.log(issueCommandRequestBody)
+    
+
+        androidApi.enterprises.devices.issueCommand({
+            name: `${enterpriseName}/devices/${options.name}`,
+            requestBody: issueCommandRequestBody
+        }).then((issueCommandResponse) => {
+
+            let response = issueCommandResponse.data;
+            // Print response
+            console.log("");
+            console.log(chalk.blue("Command sent successfully"));
+            console.log("");
+            console.log(response);
+        }).catch(error => {
+            console.error(chalk.red('Couldn\'t send command:'), error.message);
+            if (error.response) {
+                console.error('Details:', error.response.data);
+            }
+        });
+    });
+
+    // devices start-lost-mode command
+    devicesCommand
+    .command('start-lost-mode')
+    .description('Send a command to start a lost mode on a device. Run \'devices list\' command to get name (ID) of the device.')
+    .requiredOption('-n, --name <device-name>', 'Specify the name (ID) of the device to get details.')
+    .option('--message <lost-mode-message>', 'Specify a message that will be displayed when lost mode is active on a device.)')
+    .option('--email <lost-mode-email>', 'Specify an email that will be displayed when lost mode is active on a device.)')
+    .option('--phone <lost-mode-phone>', 'Specify a phone number that will be displayed when lost mode is active on a device.)')
+    .option('--address <lost-mode-address>', 'Specify a street address that will be displayed when lost mode is active on a device.)')
+    .option('--org <lost-mode-organization>', 'Specify an organization name that will be displayed when lost mode is active on a device.)')
+    .action((options) => {
+
+        let enterpriseName;
+
+        if (options.enterpriseName) {
+            enterpriseName = options.enterpriseName;
+        } else if (config.defaultEnterprise) {
+            enterpriseName = config.defaultEnterprise;
+        } else {
+            console.log(chalk.red('Please use \'--enterprise-name\' or specify defaultEnterprise in config.'));
+            return;
+        }
+
+        // Validate at least one option is specified
+        if (!options.message && !options.email && !options.phone && !options.address && !options.org) {
+            console.log(chalk.red('Please specify at least one of the following options: \'--message\', \'--email\', \'--phone\', \'--address\', or \'--org\'.'));
+            return;
+        }
+
+        // Assign option to start lost mode params
+        let issueCommandRequestBody = {
+            startLostModeParams: {}
+        };
+        options.message && (issueCommandRequestBody.startLostModeParams.lostMessage = { defaultMessage: options.message });
+        options.email && (issueCommandRequestBody.startLostModeParams.lostEmailAddress = options.email);
+        options.phone && (issueCommandRequestBody.startLostModeParams.lostPhoneNumber = { defaultMessage: options.phone });
+        options.address && (issueCommandRequestBody.startLostModeParams.lostStreetAddress = { defaultMessage: options.address });
+        options.org && (issueCommandRequestBody.startLostModeParams.lostOrganization = { defaultMessage: options.org });
+
+        androidApi.enterprises.devices.issueCommand({
+            name: `${enterpriseName}/devices/${options.name}`,
+            requestBody: issueCommandRequestBody
+        }).then((issueCommandResponse) => {
+
+            let response = issueCommandResponse.data;
+            // Print response
+            console.log("");
+            console.log(chalk.blue("Command sent successfully"));
+            console.log("");
+            console.log(response);
+        }).catch(error => {
+            console.error(chalk.red('Couldn\'t send command:'), error.message);
+            if (error.response) {
+                console.error('Details:', error.response.data);
+            }
+        });
+    });
+
+    // devices stop-lost-mode command
+    devicesCommand
+    .command('stop-lost-mode')
+    .description('Send a command to stop a lost mode on a device. Run \'devices list\' command to get name (ID) of the device.')
+    .requiredOption('-n, --name <device-name>', 'Specify the name (ID) of the device to get details.')
+    .action((options) => {
+
+        let enterpriseName;
+
+        if (options.enterpriseName) {
+            enterpriseName = options.enterpriseName;
+        } else if (config.defaultEnterprise) {
+            enterpriseName = config.defaultEnterprise;
+        } else {
+            console.log(chalk.red('Please use \'--enterprise-name\' or specify defaultEnterprise in config.'));
+            return;
+        }
+
+        let issueCommandRequestBody = {
+            type: "STOP_LOST_MODE",
+            stopLostModeParams: {}
+        }
+
+        androidApi.enterprises.devices.issueCommand({
+            name: `${enterpriseName}/devices/${options.name}`,
+            requestBody: issueCommandRequestBody
+        }).then((issueCommandResponse) => {
+
+            let response = issueCommandResponse.data;
+            // Print response
+            console.log("");
+            console.log(chalk.blue("Command sent successfully"));
+            console.log("");
+            console.log(response);
+        }).catch(error => {
+            console.error(chalk.red('Couldn\'t send command:'), error.message);
+            if (error.response) {
+                console.error('Details:', error.response.data);
+            }
+        });
+    });
+
     return devicesCommand;
 };
