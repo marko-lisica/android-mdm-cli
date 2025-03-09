@@ -74,10 +74,8 @@ export const devices = (androidApi, config) => {
                 console.log(table.toString());
                 console.log("");
             }).catch(error => {
-                console.error(chalk.red('Couldn\'t get devices:'), error.message);
-                if (error.response) {
-                    console.error('Details:', error.response.data);
-                }
+                console.log("")
+                console.error(chalk.red('Couldn\'t get devices:'), error.code + ":", error.message);
             });
         });
 
@@ -133,10 +131,8 @@ export const devices = (androidApi, config) => {
                 }
 
             }).catch(error => {
-                console.error(chalk.red('Couldn\'t get device:'), error.message);
-                if (error.response) {
-                    console.error('Details:', error.response.data);
-                }
+                console.log("");
+                console.error(chalk.red('Couldn\'t get device:'), error.code + ":", error.message);
             });
         });
 
@@ -192,10 +188,8 @@ export const devices = (androidApi, config) => {
                 console.log(chalk.blue(`'${options.name}' device updated successfully`));
                 console.log("");
             }).catch(error => {
-                console.error(chalk.red('Couldn\'t get device:'), error.message);
-                if (error.response) {
-                    console.error('Details:', error.response.data);
-                }
+                console.log("");
+                console.error(chalk.red('Couldn\'t get device:'), error.code + ":", error.message);
             });
         });
 
@@ -227,10 +221,8 @@ export const devices = (androidApi, config) => {
                 console.log(chalk.green(`${options.name} device successfully deleted.`));
                 console.log("");
             }).catch(error => {
-                console.error(chalk.red('Couldn\'t delete device:'), error.message);
-                if (error.response) {
-                    console.error('Details:', error.response.data);
-                }
+                console.log("");
+                console.error(chalk.red('Couldn\'t delete device:'), error.code + ":", error.message);
             });
         });
 
@@ -276,10 +268,8 @@ export const devices = (androidApi, config) => {
             console.log("");
             console.log(response);
         }).catch(error => {
-            console.error(chalk.red('Couldn\'t send command:'), error.message);
-            if (error.response) {
-                console.error('Details:', error.response.data);
-            }
+            console.log("");
+            console.error(chalk.red('Couldn\'t send command:'), error.code + ":", error.message);
         });
     });
 
@@ -318,10 +308,8 @@ export const devices = (androidApi, config) => {
             console.log("");
             console.log(response);
         }).catch(error => {
-            console.error(chalk.red('Couldn\'t send command:'), error.message);
-            if (error.response) {
-                console.error('Details:', error.response.data);
-            }
+            console.log("");
+            console.error(chalk.red('Couldn\'t send command:'), error.code + ":", error.message);
         });
     });
 
@@ -359,10 +347,8 @@ export const devices = (androidApi, config) => {
             console.log("");
             console.log(response);
         }).catch(error => {
-            console.error(chalk.red('Couldn\'t send command:'), error.message);
-            if (error.response) {
-                console.error('Details:', error.response.data);
-            }
+            console.log("");
+            console.error(chalk.red('Couldn\'t send command:'), error.code + ":", error.message);
         });
     });
 
@@ -400,10 +386,8 @@ export const devices = (androidApi, config) => {
             console.log("");
             console.log(response);
         }).catch(error => {
-            console.error(chalk.red('Couldn\'t send command:'), error.message);
-            if (error.response) {
-                console.error('Details:', error.response.data);
-            }
+            console.log("");
+            console.error(chalk.red('Couldn\'t send command:'), error.code + ":", error.message);
         });
     });
 
@@ -449,10 +433,8 @@ export const devices = (androidApi, config) => {
             console.log("");
             console.log(response);
         }).catch(error => {
-            console.error(chalk.red('Couldn\'t send command:'), error.message);
-            if (error.response) {
-                console.error('Details:', error.response.data);
-            }
+            console.log("");
+            console.error(chalk.red('Couldn\'t send command:'), error.code + ":", error.message);
         });
     });
 
@@ -507,10 +489,8 @@ export const devices = (androidApi, config) => {
             console.log("");
             console.log(response);
         }).catch(error => {
-            console.error(chalk.red('Couldn\'t send command:'), error.message);
-            if (error.response) {
-                console.error('Details:', error.response.data);
-            }
+            console.log("");
+            console.error(chalk.red('Couldn\'t send command:'), error.code + ":", error.message);
         });
     });
 
@@ -549,10 +529,8 @@ export const devices = (androidApi, config) => {
             console.log("");
             console.log(response);
         }).catch(error => {
-            console.error(chalk.red('Couldn\'t send command:'), error.message);
-            if (error.response) {
-                console.error('Details:', error.response.data);
-            }
+            console.log("");
+            console.error(chalk.red('Couldn\'t send command:'), error.code + ":", error.message);
         });
     });
 

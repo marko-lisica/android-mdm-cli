@@ -25,10 +25,8 @@ export const enrollmentTokens = (androidApi, config) => {
                 console.log(chalk.red('Please use \'--enterprise-name\' or specify defaultEnterprise in config.'));
                 return;
             }
-
-            // TODO: Is name necessary?
+           
             const requestBody = {
-                // name: options.name,
                 policyName: `${enterpriseName}/policies/default`,
             };
             
@@ -52,10 +50,8 @@ export const enrollmentTokens = (androidApi, config) => {
                 console.log(`https://enterprise.google.com/android/enroll?et=${tokenValue}`);
                 console.log("");
             }).catch(error => {
-                console.error('Couldn\'t create enrollment token:', error.message);
-                if (error.response) {
-                    console.error('Details:', error.response.data);
-                }
+                console.log("");
+                console.error('Couldn\'t create enrollment token:', error.code + ":", error.message);
             });
         });
 
@@ -113,10 +109,7 @@ export const enrollmentTokens = (androidApi, config) => {
                 console.log(table.toString()); 
                 console.log("");
             }).catch(error => {
-                console.error(chalk.red('Couldn\'t get enrollment tokens:'), error.message);
-                if (error.response) {
-                    console.error('Details:', error.response.data);
-                }
+                console.error(chalk.red('Couldn\'t get enrollment tokens:'), error.code + ":", error.message);
             });
         });
     
@@ -150,10 +143,8 @@ export const enrollmentTokens = (androidApi, config) => {
                 console.log("");
                 console.log(enrollmentTokenDetails);
             }).catch(error => {
-                console.error(chalk.red('Couldn\'t get policy:'), error.message);
-                if (error.response) {
-                    console.error('Details:', error.response.data);
-                }
+                console.log("");
+                console.error(chalk.red('Couldn\'t get policy:'), error.code + ":", error.message);
             });
         });
     
@@ -185,10 +176,8 @@ export const enrollmentTokens = (androidApi, config) => {
                 console.log(chalk.green(`${options.name} enrollment token successfully deleted.`));
                 console.log("");
             }).catch(error => {
-                console.error(chalk.red('Couldn\'t delete enrollment token:'), error.message);
-                if (error.response) {
-                    console.error('Details:', error.response.data);
-                }
+                console.log("");
+                console.error(chalk.red('Couldn\'t delete enrollment token:'), error.code + ":", error.message);
             });
         });
 

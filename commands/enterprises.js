@@ -65,7 +65,7 @@ export const enterprises = (androidApi, config) => {
 
                 // ACII table
                 const table = new Table({
-                    head: ['Name (ID)', 'Display name'],
+                    head: ['ID', 'Display name'],
                     style: {
                         head: [],
                     },
@@ -92,10 +92,8 @@ export const enterprises = (androidApi, config) => {
                 console.log(table.toString()); 
                 console.log("");
             }).catch(error => {
-                console.error(chalk.red('Couldn\'t get enterprises:'), error.message);
-                if (error.response) {
-                    console.error('Details:', error.response.data);
-                }
+                console.log("");
+                console.error(chalk.red('Couldn\'t get enterprises:'), error.code + ":", error.message);
             });
         });
 

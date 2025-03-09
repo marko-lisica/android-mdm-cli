@@ -13,6 +13,7 @@ import { enterprises } from './commands/enterprises.js';
 import { policies } from './commands/policies.js';
 import { enrollmentTokens } from './commands/enrollmentTokens.js';
 import { devices } from './commands/devices.js';
+import { operations } from './commands/operations.js';
 
 
 const CONFIG_FILE = path.join(process.env.HOME || process.env.HOMEPATH, '.amdm_config.json');
@@ -136,6 +137,8 @@ const startCli = (config) => {
     program.addCommand(policies(androidApi, config));
     program.addCommand(enrollmentTokens(androidApi, config));
     program.addCommand(devices(androidApi, config)); 
+    program.addCommand(operations(androidApi, config)); 
+
                
     // Parse command line arguments
     program.parse(process.argv);

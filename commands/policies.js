@@ -12,22 +12,22 @@ export const policies = (androidApi, config) => {
         .command('patch')
         .description('Add/update a policy.')
         .requiredOption('-f, --file <file-path>', 'Required. Specify path to policy JSON file.')
-        .requiredOption('-n, --name <policy-name>', 'Required. Specify the name of the policy, to reference in enrollment token or when adding to a device.')
+        .requiredOption('-i, --id <policy-id>', 'Required. Specify the ID of the policy, to reference in enrollment token or when adding to a device.')
         .option('-e, --enterprise-name <enterprise-name>', 'Specify the name of Android Enterprise to add or update policy for. Skip if \'defaultEnterprise\' is set in config.')
         .action((options) => {
 
             let policyName = null;
 
             // Validate that policy name doesn't include spaces.
-            if (options.name && options.name.includes(' ')) {
+            if (options.id && options.id.includes(' ')) {
                 console.log('Invalid name. Name can\'t include spaces.');
                 return;
             }
 
             if (options.enterpriseName) {
-                policyName = `${options.enterpriseName}/policies/${options.name}`;
+                policyName = `${options.enterpriseName}/policies/${options.id}`;
             } else if (config.defaultEnterprise) {
-                policyName = `${config.defaultEnterprise}/policies/${options.name}`;
+                policyName = `${config.defaultEnterprise}/policies/${options.id}`;
             } else {
                 console.log(chalk.red('Please use \'--enterprise-name\' or specify defaultEnterprise in config.'));
                 return;
@@ -47,15 +47,13 @@ export const policies = (androidApi, config) => {
                     const response = patchPoliciesResponse.data; 
 
                     console.log("");
-                    console.log(chalk.blue(`'${options.name}' policy successfully added.`));
+                    console.log(chalk.blue(`'${options.id}' policy successfully added/updated.`));
                     console.log("")
                     console.log(response)
                     console.log("");
                 }).catch(error => {
-                    console.error('Couldn\'t add policy:', error.message);
-                    if (error.response) {
-                        console.error('Details:', error.response.data);
-                    }
+                    console.log("");
+                    console.error('Couldn\'t add policy:', error.code + ":", error.message);
                 });
             } else {
                 console.log(chalk.red('File does not exist. Please provide a valid path.'));
@@ -88,7 +86,7 @@ export const policies = (androidApi, config) => {
 
                 // ACII table
                 const table = new Table({
-                    head: ['Name (ID)', 'Version'],
+                    head: ['ID', 'Version'],
                     style: {
                         head: [],
                     },
@@ -116,18 +114,16 @@ export const policies = (androidApi, config) => {
                 console.log(table.toString()); 
                 console.log("");
             }).catch(error => {
-                console.error(chalk.red('Couldn\'t get policies:'), error.message);
-                if (error.response) {
-                    console.error('Details:', error.response.data);
-                }
+                console.log("");
+                console.error(chalk.red('Couldn\'t get policies:'), error.code + ":", error.message);
             });
         });
 
     // policies get command
     policiesCommand
         .command('get')
-        .description('Get policy details. Run \'policies list\' command to get name (ID) of the policy.')
-        .requiredOption('-n, --name <policy-name>', 'Specify the name of the policy to get details.')
+        .description('Get policy details. Run \'policies list\' command to get ID of the policy.')
+        .requiredOption('-i, --id <policy-id>', 'Specify the ID of the policy to get details.')
         .option('-e, --enterprise-name <enterprise-name>', 'Specify the name of Android Enterprise to get policy from it. Skip if \'defaultEnterprise\' is set in config.')
         .action((options) => {
 
@@ -143,28 +139,26 @@ export const policies = (androidApi, config) => {
             }
 
             androidApi.enterprises.policies.get({
-                name: `${enterpriseName}/policies/${options.name}`,
+                name: `${enterpriseName}/policies/${options.id}`,
             }).then(getPoliciesResponse => {
                 const policyDetails = getPoliciesResponse.data;
 
                 // Print response
                 console.log("");
-                console.log(chalk.blue(`'${options.name}' policy details:`));
+                console.log(chalk.blue(`'${options.id}' policy details:`));
                 console.log("");
                 console.log(policyDetails);
             }).catch(error => {
-                console.error(chalk.red('Couldn\'t get policy:'), error.message);
-                if (error.response) {
-                    console.error('Details:', error.response.data);
-                }
+                console.log("");
+                console.error(chalk.red('Couldn\'t get policy:'), error.code + ": " + error.message);
             });
         });
 
     // policies delete command
     policiesCommand
         .command('delete')
-        .description('Delete policy from your Android Enterprise. Run \'policies list\' command to get name (ID) of the policy.')
-        .requiredOption('-n, --name <policy-name>', 'Specify the name of the policy to delete.')
+        .description('Delete policy from your Android Enterprise. Run \'policies list\' command to get ID of the policy.')
+        .requiredOption('-i, --id <policy-id>', 'Specify the ID of the policy to delete.')
         .option('-e, --enterprise-name <enterprise-name>', 'Specify the name of Android Enterprise to delete policy from. Skip if \'defaultEnterprise\' is set in config.')
         .action((options) => {
 
@@ -180,18 +174,16 @@ export const policies = (androidApi, config) => {
             }
 
             androidApi.enterprises.policies.delete({
-                name: `${enterpriseName}/policies/${options.name}`,
+                name: `${enterpriseName}/policies/${options.id}`,
             }).then(() => {
 
                 // Print response
                 console.log("");
-                console.log(chalk.green(`${options.name} policy successfully deleted.`));
+                console.log(chalk.green(`${options.id} policy successfully deleted.`));
                 console.log("");
             }).catch(error => {
-                console.error(chalk.red('Couldn\'t delete policy:'), error.message);
-                if (error.response) {
-                    console.error('Details:', error.response.data);
-                }
+                console.log("");
+                console.error(chalk.red('Couldn\'t delete policy:'), error.code + ":", error.message);
             });
         });
 
