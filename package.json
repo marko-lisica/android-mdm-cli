@@ -1,6 +1,6 @@
 {
   "name": "android-mdm-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "CLI tool to interact with Android Management API. You can register Android Enterprise, enroll devices and enforce settings.",
   "main": "cli.js",
   "type": "module",
