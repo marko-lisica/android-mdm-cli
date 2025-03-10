@@ -111,6 +111,7 @@ const main = async () => {
 
 // Function to start the CLI with the loaded configuration
 const startCli = (config) => {
+    let packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'))
     // Android Management API authentication
     const auth = new google.auth.GoogleAuth({
         keyFile: config.serviceAccountKey,
@@ -128,7 +129,7 @@ const startCli = (config) => {
     program
         .name('android-management-cli')
         .description('CLI tool to interact with Android Management API')
-        .version('1.0.0');
+        .version(packageJson.version);
 
     // Commands
     program.addCommand(createSignupUrl(androidApi, config));
@@ -137,7 +138,7 @@ const startCli = (config) => {
     program.addCommand(policies(androidApi, config));
     program.addCommand(enrollmentTokens(androidApi, config));
     program.addCommand(devices(androidApi, config)); 
-    program.addCommand(operations(androidApi, config)); 
+    program.addCommand(operations(androidApi, config));
 
                
     // Parse command line arguments
