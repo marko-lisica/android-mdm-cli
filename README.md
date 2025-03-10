@@ -14,6 +14,14 @@ This project was developed during the research phase of Fleet's Android MDM proj
 
 ## How to guide
 
+### Instalation
+
+Install npm package globally, to make it accessible from anywhere in the terminal.
+
+```bash
+npm install -g android-mdm-cli
+```
+
 To manage Android devices with `android-mdm` CLI you need to do following.
 
 1. Create Google Cloud project.
