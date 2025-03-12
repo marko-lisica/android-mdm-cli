@@ -1,6 +1,6 @@
 {
-    "enterpriseDisplayName": "Test Name",
-    "contactInfo": {
-        "contactEmail": "name@example.com"
-    }
+  "enterpriseDisplayName": "Test Name",
+  "contactInfo": {
+    "contactEmail": "name@example.com"
+  }
 }

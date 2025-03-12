@@ -35,7 +35,7 @@ To manage Android devices with `android-mdm` CLI you need to do following.
 
 See details about each step below.
 
-### Create Google Cloud project and service account 
+### Create Google Cloud project and service account
 
 Follow [this guide](https://developers.google.com/android/management/service-account) to create Google Cloud project, enable Android Management API and create service account key that's necessary to use this CLI. You'll be prompted to provide Google Cloud project ID and service account key file.
 
@@ -61,12 +61,13 @@ Policies are used to enforce settings and install/define allowed apps. Policy ca
 First, you need to create JSON file, using options available [here](https://developers.google.com/android/management/reference/rest/v1/enterprises.policies#resource:-policy).
 
 Here is an example of a policy JSON file:
+
 ```json
 {
-    "passwordRequirements": {
-        "passwordMinimumLength": 6,
-        "passwordQuality": "ALPHABETIC"
-    }
+  "passwordRequirements": {
+    "passwordMinimumLength": 6,
+    "passwordQuality": "ALPHABETIC"
+  }
 }
 ```
 
