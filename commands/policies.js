@@ -42,7 +42,7 @@ export const policies = (androidApi, config) => {
       } else {
         console.log(
           chalk.red(
-            "Please use '--enterprise-name' or specify defaultEnterprise in config."
+            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
           )
         );
         return;
@@ -105,7 +105,7 @@ export const policies = (androidApi, config) => {
       } else {
         console.log(
           chalk.red(
-            "Please use '--enterprise-name' or specify defaultEnterprise in config."
+            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
           )
         );
         return;
@@ -183,7 +183,7 @@ export const policies = (androidApi, config) => {
       } else {
         console.log(
           chalk.red(
-            "Please use '--enterprise-name' or specify defaultEnterprise in config."
+            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
           )
         );
         return;
@@ -235,7 +235,7 @@ export const policies = (androidApi, config) => {
       } else {
         console.log(
           chalk.red(
-            "Please use '--enterprise-name' or specify defaultEnterprise in config."
+            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
           )
         );
         return;

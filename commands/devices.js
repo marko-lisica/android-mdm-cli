@@ -26,7 +26,7 @@ export const devices = (androidApi, config) => {
       } else {
         console.log(
           chalk.red(
-            "Please use '--enterprise-name' or specify defaultEnterprise in config."
+            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
           )
         );
         return;
@@ -89,7 +89,7 @@ export const devices = (androidApi, config) => {
           console.log(chalk.blue('Devices:'));
           console.log(
             chalk.grey(
-              "Use 'devices get --name <Name (ID)>' to get all information about specific device."
+              "Use 'devices get --id <device_id>' to get all information about specific device."
             )
           );
           console.log('');
@@ -131,7 +131,7 @@ export const devices = (androidApi, config) => {
       } else {
         console.log(
           chalk.red(
-            "Please use '--enterprise-name' or specify defaultEnterprise in config."
+            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
           )
         );
         return;
@@ -241,7 +241,7 @@ export const devices = (androidApi, config) => {
       } else {
         console.log(
           chalk.red(
-            "Please use '--enterprise-name' or specify defaultEnterprise in config."
+            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
           )
         );
         return;
@@ -260,7 +260,7 @@ export const devices = (androidApi, config) => {
       let deviceUpdateMask = [];
 
       if (policyName) {
-        devicePatchRequestBody.policyName = `${enterpriseName}/policies/${policyId}`;
+        devicePatchRequestBody.policyName = `${enterpriseName}/policies/${policyName}`;
         deviceUpdateMask.push('policyName');
       }
 
@@ -317,7 +317,7 @@ export const devices = (androidApi, config) => {
       } else {
         console.log(
           chalk.red(
-            "Please use '--enterprise-name' or specify defaultEnterprise in config."
+            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
           )
         );
         return;
@@ -369,7 +369,7 @@ export const devices = (androidApi, config) => {
       } else {
         console.log(
           chalk.red(
-            "Please use '--enterprise-name' or specify defaultEnterprise in config."
+            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
           )
         );
         return;
@@ -429,7 +429,7 @@ export const devices = (androidApi, config) => {
       } else {
         console.log(
           chalk.red(
-            "Please use '--enterprise-name' or specify defaultEnterprise in config."
+            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
           )
         );
         return;
@@ -482,7 +482,7 @@ export const devices = (androidApi, config) => {
       } else {
         console.log(
           chalk.red(
-            "Please use '--enterprise-name' or specify defaultEnterprise in config."
+            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
           )
         );
         return;
@@ -515,9 +515,9 @@ export const devices = (androidApi, config) => {
         });
     });
 
-  // devices relinquish_ownershio command
+  // devices relinquish_ownership command
   devicesCommand
-    .command('relinquish-ownershio')
+    .command('relinquish-ownership')
     .description(
       "Send a command to remove a work profile from company-owned device. Run 'devices list' command to get name (ID) of the device."
     )
@@ -535,7 +535,7 @@ export const devices = (androidApi, config) => {
       } else {
         console.log(
           chalk.red(
-            "Please use '--enterprise-name' or specify defaultEnterprise in config."
+            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
           )
         );
         return;
@@ -592,7 +592,7 @@ export const devices = (androidApi, config) => {
       } else {
         console.log(
           chalk.red(
-            "Please use '--enterprise-name' or specify defaultEnterprise in config."
+            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
           )
         );
         return;
@@ -671,7 +671,7 @@ export const devices = (androidApi, config) => {
       } else {
         console.log(
           chalk.red(
-            "Please use '--enterprise-name' or specify defaultEnterprise in config."
+            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
           )
         );
         return;
@@ -760,7 +760,7 @@ export const devices = (androidApi, config) => {
       } else {
         console.log(
           chalk.red(
-            "Please use '--enterprise-name' or specify defaultEnterprise in config."
+            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
           )
         );
         return;

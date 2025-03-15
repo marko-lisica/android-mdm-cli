@@ -141,7 +141,7 @@ const startCli = (config) => {
   program
     .name('android-management-cli')
     .description('CLI tool to interact with Android Management API')
-    .version('1.0.4');
+    .version('1.0.5');
 
   // Commands
   program.addCommand(createSignupUrl(androidApi, config));
