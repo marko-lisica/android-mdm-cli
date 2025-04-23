@@ -2,5 +2,16 @@
   "passwordRequirements": {
     "passwordMinimumLength": 6,
     "passwordQuality": "ALPHABETIC"
-  }
+  },
+  "applications": [
+    {
+      "defaultPermissionPolicy": "GRANT",
+      "installType": "FORCE_INSTALLED",
+      "packageName": "com.google.android.gm"
+    },
+    {
+      "installType": "AVAILABLE",
+      "packageName": "com.google.android.apps.docs"
+    }
+  ]
 }

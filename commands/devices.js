@@ -52,7 +52,7 @@ export const devices = (androidApi, config) => {
             }
           });
 
-          if (!devices) {
+          if (!devices || devices.length === 0) {
             console.log('');
             console.log(
               chalk.yellow(
@@ -64,7 +64,9 @@ export const devices = (androidApi, config) => {
 
           devices.forEach((device) => {
             const deviceId = device.name.split('/').pop();
-            const policyId = device.appliedPolicyName.split('/').pop();
+            const policyId = device.appliedPolicyName
+              ? device.appliedPolicyName.split('/').pop()
+              : 'N/A';
 
             let ownership;
 
