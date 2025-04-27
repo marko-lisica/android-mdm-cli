@@ -2,6 +2,7 @@ import chalk from 'chalk';
 import { Command } from 'commander';
 import fs from 'fs';
 import Table from 'cli-table3';
+import errorMessages from '../cli.js';
 
 export const devices = (androidApi, config) => {
   const devicesCommand = new Command('devices').description(
@@ -14,7 +15,7 @@ export const devices = (androidApi, config) => {
     .description('List devices enrolled to your Android Enterprise.')
     .option(
       '-e, --enterprise-name <enterprise-name>',
-      "Specify the name of Android Enterprise to list devices for. Skip if 'defaultEnterprise' is set in config."
+      "Specify the name of Android Enterprise to list devices for. Skip if 'defaultEnterprise' is set in the config."
     )
     .action((options) => {
       let enterpriseName;
@@ -24,11 +25,7 @@ export const devices = (androidApi, config) => {
       } else if (config.defaultEnterprise) {
         enterpriseName = config.defaultEnterprise;
       } else {
-        console.log(
-          chalk.red(
-            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
-          )
-        );
+        console.log(chalk.red(errorMessages.missingEnterpriseName));
         return;
       }
 
@@ -120,7 +117,7 @@ export const devices = (androidApi, config) => {
     )
     .option(
       '-e, --enterprise-name <enterprise-name>',
-      "Specify the name of Android Enterprise to get policy from it. Skip if 'defaultEnterprise' is set in config."
+      "Specify the name of Android Enterprise to get the device from it. Skip if 'defaultEnterprise' is set in the config."
     )
     .option('--save', 'Save full device details response to a file.')
     .action((options) => {
@@ -131,11 +128,7 @@ export const devices = (androidApi, config) => {
       } else if (config.defaultEnterprise) {
         enterpriseName = config.defaultEnterprise;
       } else {
-        console.log(
-          chalk.red(
-            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
-          )
-        );
+        console.log(chalk.red(errorMessages.missingEnterpriseName));
         return;
       }
 
@@ -184,7 +177,7 @@ export const devices = (androidApi, config) => {
           console.log('');
           !options.save
             ? console.log(
-                "Response is long to be displayed in terminal. Use '--save' flag to save response to a file."
+                "Response is long to be displayed in terminal. Use '--save' flag to save response to a JSON file."
               )
             : console.log('');
 
@@ -215,7 +208,7 @@ export const devices = (androidApi, config) => {
   devicesCommand
     .command('update')
     .description(
-      "Update device policy and state. Run 'devices list' command to get name (ID) of the device."
+      "Update device policy and state. Run 'devices list' command to get the device ID."
     )
     .requiredOption(
       '-i, --id <device-id>',
@@ -231,7 +224,7 @@ export const devices = (androidApi, config) => {
     )
     .option(
       '-e, --enterprise-name <enterprise-name>',
-      'Specify the name of Android Enterprise to get policy from it. Skip if "defaultEnterprise" is set in config.'
+      'Specify the name of Android Enterprise to update the device from it. Skip if "defaultEnterprise" is set in the config.'
     )
     .action((options) => {
       let enterpriseName;
@@ -241,11 +234,7 @@ export const devices = (androidApi, config) => {
       } else if (config.defaultEnterprise) {
         enterpriseName = config.defaultEnterprise;
       } else {
-        console.log(
-          chalk.red(
-            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
-          )
-        );
+        console.log(chalk.red(errorMessages.missingEnterpriseName));
         return;
       }
 
@@ -307,7 +296,7 @@ export const devices = (androidApi, config) => {
     )
     .option(
       '-e, --enterprise-name <enterprise-name>',
-      "Specify the name of Android Enterprise to delete policy from. Skip if 'defaultEnterprise' is set in config."
+      "Specify the name of Android Enterprise to delete the device from. Skip if 'defaultEnterprise' is set in the config."
     )
     .action((options) => {
       let enterpriseName;
@@ -317,11 +306,7 @@ export const devices = (androidApi, config) => {
       } else if (config.defaultEnterprise) {
         enterpriseName = config.defaultEnterprise;
       } else {
-        console.log(
-          chalk.red(
-            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
-          )
-        );
+        console.log(chalk.red(errorMessages.missingEnterpriseName));
         return;
       }
 
@@ -361,6 +346,10 @@ export const devices = (androidApi, config) => {
       '-f, --flags <reset-password-options>',
       'Specify comma separated reset password flags. Available flags: https://developers.google.com/android/management/reference/rest/v1/enterprises.devices/issueCommand#ResetPasswordFlag'
     )
+    .option(
+      '-e, --enterprise-name <enterprise-name>',
+      "Specify the name of Android Enterprise to reset password on the device from it. Skip if 'defaultEnterprise' is set in the config."
+    )
     .action((options) => {
       let enterpriseName;
 
@@ -369,11 +358,7 @@ export const devices = (androidApi, config) => {
       } else if (config.defaultEnterprise) {
         enterpriseName = config.defaultEnterprise;
       } else {
-        console.log(
-          chalk.red(
-            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
-          )
-        );
+        console.log(chalk.red(errorMessages.missingEnterpriseName));
         return;
       }
 
@@ -421,6 +406,10 @@ export const devices = (androidApi, config) => {
       '-i, --id <device-id>',
       'Required. Specify the ID of the device to run command on.'
     )
+    .option(
+      '-e, --enterprise-name <enterprise-name>',
+      "Specify the name of Android Enterprise to reboot the device from it. Skip if 'defaultEnterprise' is set in the config."
+    )
     .action((options) => {
       let enterpriseName;
 
@@ -429,11 +418,7 @@ export const devices = (androidApi, config) => {
       } else if (config.defaultEnterprise) {
         enterpriseName = config.defaultEnterprise;
       } else {
-        console.log(
-          chalk.red(
-            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
-          )
-        );
+        console.log(chalk.red(errorMessages.missingEnterpriseName));
         return;
       }
 
@@ -474,6 +459,10 @@ export const devices = (androidApi, config) => {
       '-i, --id <device-id>',
       'Required. Specify the ID of the device to run command on.'
     )
+    .option(
+      '-e, --enterprise-name <enterprise-name>',
+      "Specify the name of Android Enterprise to lock the device from it. Skip if 'defaultEnterprise' is set in the config."
+    )
     .action((options) => {
       let enterpriseName;
 
@@ -482,11 +471,7 @@ export const devices = (androidApi, config) => {
       } else if (config.defaultEnterprise) {
         enterpriseName = config.defaultEnterprise;
       } else {
-        console.log(
-          chalk.red(
-            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
-          )
-        );
+        console.log(chalk.red(errorMessages.missingEnterpriseName));
         return;
       }
 
@@ -527,6 +512,10 @@ export const devices = (androidApi, config) => {
       '-i, --id <device-id>',
       'Required. Specify the ID of the device to run command on.'
     )
+    .option(
+      '-e, --enterprise-name <enterprise-name>',
+      "Specify the name of Android Enterprise to remove a work profile from the device from it. Skip if 'defaultEnterprise' is set in the config."
+    )
     .action((options) => {
       let enterpriseName;
 
@@ -535,11 +524,7 @@ export const devices = (androidApi, config) => {
       } else if (config.defaultEnterprise) {
         enterpriseName = config.defaultEnterprise;
       } else {
-        console.log(
-          chalk.red(
-            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
-          )
-        );
+        console.log(chalk.red(errorMessages.missingEnterpriseName));
         return;
       }
 
@@ -584,6 +569,10 @@ export const devices = (androidApi, config) => {
       '-a, --app-ids <ids-of-apps>',
       "Required. Specify comma separated app IDs . If not specified, all app data will be cleared. You can find app ID in the URL of the Play Store app (look for 'id=com.example' in the URL.)"
     )
+    .option(
+      '-e, --enterprise-name <enterprise-name>',
+      "Specify the name of Android Enterprise to clear app data from the device from it. Skip if 'defaultEnterprise' is set in the config."
+    )
     .action((options) => {
       let enterpriseName;
 
@@ -592,11 +581,7 @@ export const devices = (androidApi, config) => {
       } else if (config.defaultEnterprise) {
         enterpriseName = config.defaultEnterprise;
       } else {
-        console.log(
-          chalk.red(
-            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
-          )
-        );
+        console.log(chalk.red(errorMessages.missingEnterpriseName));
         return;
       }
 
@@ -663,6 +648,10 @@ export const devices = (androidApi, config) => {
       '--org <lost-mode-organization>',
       'Specify an organization name that will be displayed when lost mode is active on a device.)'
     )
+    .option(
+      '-e, --enterprise-name <enterprise-name>',
+      "Specify the name of Android Enterprise to start lost mode on the device from it. Skip if 'defaultEnterprise' is set in the config."
+    )
     .action((options) => {
       let enterpriseName;
 
@@ -671,11 +660,7 @@ export const devices = (androidApi, config) => {
       } else if (config.defaultEnterprise) {
         enterpriseName = config.defaultEnterprise;
       } else {
-        console.log(
-          chalk.red(
-            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
-          )
-        );
+        console.log(chalk.red(errorMessages.missingEnterpriseName));
         return;
       }
 
@@ -752,6 +737,10 @@ export const devices = (androidApi, config) => {
       '-i, --id <device-id>',
       'Required. Specify the ID of the device to run command on.'
     )
+    .option(
+      '-e, --enterprise-name <enterprise-name>',
+      "Specify the name of Android Enterprise to stop lost mode on the device from it. Skip if 'defaultEnterprise' is set in the config."
+    )
     .action((options) => {
       let enterpriseName;
 
@@ -760,11 +749,7 @@ export const devices = (androidApi, config) => {
       } else if (config.defaultEnterprise) {
         enterpriseName = config.defaultEnterprise;
       } else {
-        console.log(
-          chalk.red(
-            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
-          )
-        );
+        console.log(chalk.red(errorMessages.missingEnterpriseName));
         return;
       }
 

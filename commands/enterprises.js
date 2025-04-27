@@ -12,9 +12,7 @@ export const enterprises = (androidApi, config) => {
   // enterprises bind command
   enterprisesCommand
     .command('bind')
-    .description(
-      'Bind registered Android Enterprise to your Google Cloud project.'
-    )
+    .description('Bind Android Enterprise to your Google Cloud project.')
     .action(() => {
       // Prompt for signupUrlName and enterpriseToken
       inquirer
@@ -93,7 +91,7 @@ export const enterprises = (androidApi, config) => {
             console.log('');
             console.log(
               chalk.yellow(
-                "No enterprises available. Use 'create-signup-url' to register Android Enterprise."
+                "No enterprises available. Use 'create-signup-url' to signup and create Android Enterprise."
               )
             );
             return;

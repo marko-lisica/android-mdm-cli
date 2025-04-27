@@ -5,7 +5,7 @@ import { loadConfig, saveConfig } from '../cli.js';
 export const configCommand = () => {
   const command = new Command()
     .name('config')
-    .description('Update configuration for the CLI tool.')
+    .description('Manage CLI configuration.')
     .option(
       '-a, --add <key-value>',
       'Add a new key-value pair to the config file (e.g., "defaultEnterprise=enterprises/LC01ro7nu8")'
@@ -33,13 +33,13 @@ export const configCommand = () => {
           );
         } else {
           console.error(
-            chalk.red('Invalid format. Use: amdm config --add "key=value"')
+            chalk.red('Invalid format. Use: \'config --add "key=value"\'')
           );
         }
       } else {
         console.log(
           chalk.yellow(
-            'No options provided. Use --add to specify key-value pairs.'
+            "No options provided. Use '--add' to specify key-value pairs."
           )
         );
       }

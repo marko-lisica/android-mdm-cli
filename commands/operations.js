@@ -1,6 +1,7 @@
 import chalk from 'chalk';
 import { Command } from 'commander';
 import Table from 'cli-table3';
+import errorMessages from '../cli.js';
 
 export const operations = (androidApi, config) => {
   const operationsCommand = new Command('operations').description(
@@ -17,7 +18,7 @@ export const operations = (androidApi, config) => {
     )
     .option(
       '-e, --enterprise-name <enterprise-name>',
-      "Specify the name of Android Enterprise to get policy from it. Skip if 'defaultEnterprise' is set in config."
+      "Specify the name of Android Enterprise to list operations from it. Skip if 'defaultEnterprise' is set in the config."
     )
     .action((options) => {
       let enterpriseName;
@@ -27,11 +28,7 @@ export const operations = (androidApi, config) => {
       } else if (config.defaultEnterprise) {
         enterpriseName = config.defaultEnterprise;
       } else {
-        console.log(
-          chalk.red(
-            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
-          )
-        );
+        console.log(chalk.red(errorMessages.missingEnterpriseName));
         return;
       }
 
@@ -98,7 +95,7 @@ export const operations = (androidApi, config) => {
     )
     .option(
       '-e, --enterprise-name <enterprise-name>',
-      "Specify the name of Android Enterprise to get policy from it. Skip if 'defaultEnterprise' is set in config."
+      "Specify the name of Android Enterprise to get the operation from it. Skip if 'defaultEnterprise' is set in config."
     )
     .action((options) => {
       let enterpriseName;
@@ -108,11 +105,7 @@ export const operations = (androidApi, config) => {
       } else if (config.defaultEnterprise) {
         enterpriseName = config.defaultEnterprise;
       } else {
-        console.log(
-          chalk.red(
-            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
-          )
-        );
+        console.log(chalk.red(errorMessages.missingEnterpriseName));
         return;
       }
 
@@ -151,7 +144,7 @@ export const operations = (androidApi, config) => {
     )
     .option(
       '-e, --enterprise-name <enterprise-name>',
-      "Specify the name of Android Enterprise to get policy from it. Skip if 'defaultEnterprise' is set in config."
+      "Specify the name of the Android Enterprise to cancel the operation in it. Skip if 'defaultEnterprise' is set in the config."
     )
     .action((options) => {
       let enterpriseName;
@@ -161,11 +154,7 @@ export const operations = (androidApi, config) => {
       } else if (config.defaultEnterprise) {
         enterpriseName = config.defaultEnterprise;
       } else {
-        console.log(
-          chalk.red(
-            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
-          )
-        );
+        console.log(chalk.red(errorMessages.missingEnterpriseName));
         return;
       }
 

@@ -4,7 +4,7 @@ import { Command } from 'commander';
 export const createSignupUrl = (androidApi, config) => {
   const command = new Command()
     .name('create-signup-url')
-    .description('Create a signup URL for Android Management.')
+    .description('Create a signup URL to signup and create Android Enterprise.')
     .action(() => {
       androidApi.signupUrls
         .create({
@@ -23,11 +23,11 @@ export const createSignupUrl = (androidApi, config) => {
           console.log(chalk.blue('Signup URL:') + ' ', signupUrl);
           console.log('');
           console.log(
-            "Save signup URL name, because you'll need this to create (bind) Android Enterprise (AE) later."
+            "Save signup URL name, you'll need this to create (bind) Android Enterprise (AE) later."
           );
           console.log('');
           console.log(
-            "After you go through registration flow and get enterpriseToken from a callback URL. Use \'enterprisesbind\' command to bind AE to your Google Cloud project with signup URL name enterprise token from callback."
+            "After you go through signup flow and get enterpriseToken from a callback URL. Use \'enterprises bind\' command to bind AE to your Google Cloud project with signup URL name and enterprise token (query param in callback URL)."
           );
           console.log('');
         })

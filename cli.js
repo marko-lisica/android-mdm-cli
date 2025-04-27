@@ -20,6 +20,12 @@ const CONFIG_FILE = path.join(
   '.amdm_config.json'
 );
 
+// Error messages
+const errorMessages = {
+  missingEnterpriseName:
+    "Please use '--enterprise-name'(e.g enterprises/LC03trycps) or specify 'defaultEnterprise' in the config."
+};
+
 // Function to load configuration
 export const loadConfig = () => {
   if (fs.existsSync(CONFIG_FILE)) {
@@ -85,7 +91,8 @@ const checkServiceAccountKey = async (config) => {
       {
         type: 'input',
         name: 'serviceAccountKey',
-        message: 'Please provide a new path to your service account key file:',
+        message:
+          'Please provide a path (absolute) to your service account key file:',
         validate: (input) => {
           const absolutePath = path.resolve(input);
           return (
@@ -111,7 +118,7 @@ const main = async () => {
         config = answers;
       })
       .catch((error) => {
-        console.error('Error prompting for configuration:', error);
+        console.error('Error:', error);
       });
   }
 
@@ -140,8 +147,8 @@ const startCli = (config) => {
 
   program
     .name('android-management-cli')
-    .description('CLI tool to interact with Android Management API')
-    .version('1.0.5');
+    .description('CLI for Android Management API')
+    .version('1.0.6');
 
   // Commands
   program.addCommand(createSignupUrl(androidApi, config));
@@ -163,3 +170,5 @@ const startCli = (config) => {
 
 // Call the main function
 main();
+
+export default errorMessages;

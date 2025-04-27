@@ -1,6 +1,7 @@
 import chalk from 'chalk';
 import { Command } from 'commander';
 import Table from 'cli-table3';
+import errorMessages from '../cli.js';
 
 export const enrollmentTokens = (androidApi, config) => {
   const enrollmentTokensCommand = new Command('enrollment-tokens').description(
@@ -11,7 +12,7 @@ export const enrollmentTokens = (androidApi, config) => {
   enrollmentTokensCommand
     .command('add')
     .description(
-      'Create new enrollment token and use to enroll devices to your Android Enterprise.'
+      'Create a new enrollment token and use it to enroll devices in your Android Enterprise.'
     )
     .requiredOption(
       '-n, --name <token-name>',
@@ -23,7 +24,7 @@ export const enrollmentTokens = (androidApi, config) => {
     )
     .option(
       '-e, --enterprise-name <enterprise-name>',
-      "Specify the name of Android Enterprise to create enrollment token for. Skip if 'defaultEnterprise' is set in config."
+      "Specify the name of Android Enterprise to create an enrollment token for. Skip if 'defaultEnterprise' is set in the config."
     )
     .action((options) => {
       let enterpriseName;
@@ -33,11 +34,7 @@ export const enrollmentTokens = (androidApi, config) => {
       } else if (config.defaultEnterprise) {
         enterpriseName = config.defaultEnterprise;
       } else {
-        console.log(
-          chalk.red(
-            "Please use '--enterprise-name'(e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
-          )
-        );
+        console.log(chalk.red(errorMessages.missingEnterpriseName));
         return;
       }
 
@@ -85,7 +82,7 @@ export const enrollmentTokens = (androidApi, config) => {
     .description('List enrollment tokens available in your Android Enterprise.')
     .option(
       '-e, --enterprise-name <enterprise-name>',
-      "Specify the name of Android Enterprise to list policies for. Skip if 'defaultEnterprise' is set in config."
+      "Specify the name of Android Enterprise to list enrollment tokens for it. Skip if 'defaultEnterprise' is set in the config."
     )
     .action((options) => {
       let enterpriseName;
@@ -95,11 +92,7 @@ export const enrollmentTokens = (androidApi, config) => {
       } else if (config.defaultEnterprise) {
         enterpriseName = config.defaultEnterprise;
       } else {
-        console.log(
-          chalk.red(
-            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
-          )
-        );
+        console.log(chalk.red(errorMessages.missingEnterpriseName));
         return;
       }
 
@@ -163,7 +156,7 @@ export const enrollmentTokens = (androidApi, config) => {
     )
     .option(
       '-e, --enterprise-name <enterprise-name>',
-      "Specify the name of Android Enterprise to get policy from it. Skip if 'defaultEnterprise' is set in config."
+      "Specify the name of Android Enterprise to get the enrollment token from it. Skip if 'defaultEnterprise' is set in the config."
     )
     .action((options) => {
       let enterpriseName;
@@ -173,11 +166,7 @@ export const enrollmentTokens = (androidApi, config) => {
       } else if (config.defaultEnterprise) {
         enterpriseName = config.defaultEnterprise;
       } else {
-        console.log(
-          chalk.red(
-            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
-          )
-        );
+        console.log(chalk.red(errorMessages.missingEnterpriseName));
         return;
       }
 
@@ -218,7 +207,7 @@ export const enrollmentTokens = (androidApi, config) => {
     )
     .option(
       '-e, --enterprise-name <enterprise-name>',
-      "Specify the name of Android Enterprise to delete policy from. Skip if 'defaultEnterprise' is set in config."
+      "Specify the name of Android Enterprise to delete the enrollment token from. Skip if 'defaultEnterprise' is set in the config."
     )
     .action((options) => {
       let enterpriseName;
@@ -228,11 +217,7 @@ export const enrollmentTokens = (androidApi, config) => {
       } else if (config.defaultEnterprise) {
         enterpriseName = config.defaultEnterprise;
       } else {
-        console.log(
-          chalk.red(
-            "Please use '--enterprise-name' (e.g enterprises/LC03trycps) or specify defaultEnterprise in config."
-          )
-        );
+        console.log(chalk.red(errorMessages.missingEnterpriseName));
         return;
       }
 
